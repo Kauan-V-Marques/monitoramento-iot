@@ -1,0 +1,40 @@
+services:
+  broker:
+    image: eclipse-mosquitto:2
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./infra/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+
+  banco:
+    image: timescale/timescaledb:latest-pg17
+    environment:
+      POSTGRES_DB: iot
+      POSTGRES_USER: iot
+      POSTGRES_PASSWORD: iot
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U iot -d iot"]
+      interval: 5s
+      retries: 20
+
+  plataforma:
+    build: ./plataforma
+    environment:
+      DATABASE_URL: postgresql://iot:iot@banco:5432/iot
+      MQTT_HOST: broker
+    ports:
+      - "8000:8000"
+    depends_on:
+      banco:
+        condition: service_healthy
+      broker:
+        condition: service_started
+
+  # Máquinas simuladas (dispense quando tiver ESP32 de verdade publicando)
+  simulador:
+    build: ./plataforma
+    command: ["python", "-m", "plataforma.simulador", "--broker", "broker", "--maquinas", "5", "--intervalo", "2"]
+    depends_on:
+      - plataforma
