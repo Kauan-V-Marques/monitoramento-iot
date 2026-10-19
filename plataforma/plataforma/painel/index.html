@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Monitoramento de Máquinas</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+  <link rel="stylesheet" href="/painel/painel.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js" defer></script>
+  <script src="/painel/painel.js" defer></script>
+</head>
+<body>
+  <header class="topo">
+    <div>
+      <h1>Monitoramento de Máquinas</h1>
+      <p class="sub">Telemetria via MQTT · atualização ao vivo</p>
+    </div>
+    <span id="conexao" class="conexao">conectando…</span>
+  </header>
+
+  <main>
+    <section id="maquinas" class="grade" aria-label="Máquinas"></section>
+
+    <section class="painel-detalhe">
+      <div class="cartao grafico">
+        <div class="cartao-titulo">
+          <h2 id="titulo-grafico">Histórico</h2>
+          <select id="periodo" aria-label="Período">
+            <option value="10">10 min</option>
+            <option value="30" selected>30 min</option>
+            <option value="120">2 h</option>
+          </select>
+        </div>
+        <canvas id="grafico" height="120"></canvas>
+      </div>
+
+      <div class="cartao">
+        <div class="cartao-titulo"><h2>Alertas</h2></div>
+        <ul id="alertas" class="alertas"></ul>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
