@@ -1,10 +1,28 @@
-# Monitoramento de Máquinas (IoT)
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0D1117,50:1F6FEB,100:58A6FF&height=110&section=header" alt="" width="100%">
+</p>
 
-![CI](https://github.com/Kauan-V-Marques/monitoramento-iot/actions/workflows/ci.yml/badge.svg)
-![ESP32](https://img.shields.io/badge/ESP32-C%2B%2B-E7352C?logo=espressif&logoColor=white)
-![MQTT](https://img.shields.io/badge/MQTT-Mosquitto-660066?logo=eclipsemosquitto&logoColor=white)
-![Python](https://img.shields.io/badge/Python-FastAPI-009688?logo=fastapi&logoColor=white)
-![TimescaleDB](https://img.shields.io/badge/TimescaleDB-PostgreSQL-FDB515?logo=timescale&logoColor=black)
+<h1 align="center">Monitoramento de Máquinas (IoT)</h1>
+
+<p align="center"><b>IoT de ponta a ponta · ESP32 · MQTT · FastAPI · TimescaleDB</b></p>
+
+<p align="center">
+  <a href="https://github.com/Kauan-V-Marques/monitoramento-iot/actions/workflows/ci.yml"><img src="https://github.com/Kauan-V-Marques/monitoramento-iot/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <img src="https://img.shields.io/badge/ESP32-C%2B%2B-E7352C?logo=espressif&logoColor=white" alt="ESP32">
+  <img src="https://img.shields.io/badge/MQTT-Mosquitto-660066?logo=eclipsemosquitto&logoColor=white" alt="MQTT">
+  <img src="https://img.shields.io/badge/Python-FastAPI-009688?logo=fastapi&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/TimescaleDB-PostgreSQL-FDB515?logo=timescale&logoColor=black" alt="TimescaleDB">
+</p>
+
+<p align="center">
+  <a href="#arquitetura">Arquitetura</a> ·
+  <a href="#firmware-esp32-c">Firmware (ESP32, C++)</a> ·
+  <a href="#plataforma-python">Plataforma (Python)</a> ·
+  <a href="#como-rodar">Como rodar</a> ·
+  <a href="#testes">Testes</a>
+</p>
+
+---
 
 Sistema **IoT de ponta a ponta** para monitorar máquinas industriais. O caminho completo:
 
@@ -111,3 +129,15 @@ O GitHub Actions roda os testes do firmware e **compila para ESP32**, depois rod
 ESP32 firmware (C++/PlatformIO) reads temperature (NTC thermistor, Beta equation), vibration (MPU-6050, RMS without gravity), current (ACS712) and speed, and publishes JSON over **MQTT** with last-will online/offline status and remote commands. A **Python/FastAPI** platform ingests messages asynchronously (aiomqtt + Pydantic validation), stores them in a **TimescaleDB** hypertable, raises alerts with hysteresis, and streams to a live **WebSocket dashboard** (Chart.js). Includes a machine simulator with failure modes, Docker Compose (Mosquitto, TimescaleDB, platform, simulator) and CI that unit-tests the firmware, builds it for ESP32 and runs end-to-end tests against real Mosquitto and TimescaleDB.
 
 </details>
+
+---
+
+<p align="center">
+  Feito por <a href="https://github.com/Kauan-V-Marques"><b>Kauan Victor Marques</b></a> ·
+  <a href="https://kauan-v-marques.github.io/curriculo/">Currículo</a> ·
+  <a href="https://github.com/Kauan-V-Marques?tab=repositories">Mais projetos</a>
+</p>
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0D1117,50:1F6FEB,100:58A6FF&height=80&section=footer" alt="" width="100%">
+</p>
